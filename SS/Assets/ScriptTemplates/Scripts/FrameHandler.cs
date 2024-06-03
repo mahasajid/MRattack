@@ -12,8 +12,12 @@ public class FrameHandler : MonoBehaviour
     // Corners of the frame, make them adjustable this time
     public static List<Vector3> corners; // left top, right top, left bottom, right bottom
                                          // (maybe we should just forbid users from starting with bottom borders...)
+    public static Vector3 addition_second = new Vector3(0.5f,0f,0f);
+    public static Vector3 addition_third = new Vector3(0.0f,0.0f,-0.5f);
     public static readonly object frame_corner_lock = new object();
     public static bool corners_updated = false;
+
+    public static Vector3 first_position;
     // private List<LineRenderer> remoteLines;
 
     // surface stats
@@ -35,7 +39,8 @@ public class FrameHandler : MonoBehaviour
         // is in cursor drawing state
         if (corners.Count == 1)
         {
-            lineRenderers[0].SetPosition(1, HandEventsHandler.handray_cursor_position);
+           
+            lineRenderers[0].SetPosition(1, first_position+addition_second);
             //if (RemoteSpaceControl.remoteSet && !HandEventsHandler.handray_cursor_position.Equals(corners[0]))
             //{
             //    Vector3 direction = (HandEventsHandler.handray_cursor_position - corners[0]).normalized;
@@ -45,7 +50,7 @@ public class FrameHandler : MonoBehaviour
         else if (corners.Count == 2)
         {
             Vector3 firstBorderVec = corners[1] - corners[0]; // AB
-            Vector3 cursorVec = HandEventsHandler.handray_cursor_position - corners[0]; // AC
+            Vector3 cursorVec = addition_third;//HandEventsHandler.handray_cursor_position - corners[0]; // AC
             float cos_alpha = Vector3.Dot(firstBorderVec, cursorVec) / (firstBorderVec.magnitude * cursorVec.magnitude);
             Vector3 middle_point = firstBorderVec * ((cursorVec.magnitude * cos_alpha) / firstBorderVec.magnitude); // AM
             Vector3 target_vec = cursorVec - middle_point; // MC
@@ -69,31 +74,38 @@ public class FrameHandler : MonoBehaviour
     public void SetLocalPinched()
     {
         Debug.Log("Setup Local Frame Corner!");
+        first_position = HandEventsHandler.handray_cursor_position;
         int cornersDetermined = corners.Count;
-        if (cornersDetermined == 0) // first corner
-        {
-            lock (frame_corner_lock) 
-            {
-                corners.Add(HandEventsHandler.handray_cursor_position);
-            }
-            LineRenderer firstBorder = this.CreateNewLine(corners[0], corners[0], "firstBorder");
+       // if (cornersDetermined == 0) // first corner
+       // {
+           // lock (frame_corner_lock) 
+           // {
+            corners.Add(first_position);
+            corners.Add(corners[0] + addition_second);
+                
+           // }
+            LineRenderer firstBorder = this.CreateNewLine(corners[0], corners[0]+ addition_second, "firstBorder");
             lineRenderers.Add(firstBorder);
+
 
             // remote frame indicator, start with just the first line (just to avoid surface finding)
             //LineRenderer firstRemoteBorder = this.CreateNewLine(corners[0], corners[0], "firstRemoteBorder");
             //firstRemoteBorder.SetColors(new Color(0, 1, 0, 0.5f), new Color(0, 1, 0, 0.5f));
             //this.remoteLines.Add(firstRemoteBorder);
-        }
-        else if (cornersDetermined == 1)
-        {
-            lock (frame_corner_lock)
-            {
-                corners.Add(HandEventsHandler.handray_cursor_position);
-            }
-            LineRenderer secondBorder = this.CreateNewLine(corners[0], corners[0], "secondBorder"); // second border is the left border
-            LineRenderer thirdBorder = this.CreateNewLine(corners[1], corners[1], "thirdBorder"); // rightborder
+        //}
+       // if (cornersDetermined == 1)
+       // {
+           // lock (frame_corner_lock)
+           // {
+                //HandEventsHandler.handray_cursor_position );
+                //corners.Add(HandEventsHandler.handray_cursor_position);
+          //  }
+
+            LineRenderer secondBorder = this.CreateNewLine(corners[0], corners[0]+ addition_third, "secondBorder"); // second border is the left border
+            LineRenderer thirdBorder = this.CreateNewLine(corners[1], corners[1]+ addition_third, "thirdBorder"); // rightborder
             lineRenderers.Add(secondBorder);
             lineRenderers.Add(thirdBorder);
+    
 
             // remote frame indicator, display the full frame
             //if (RemoteSpaceControl.remoteSet)
@@ -108,15 +120,17 @@ public class FrameHandler : MonoBehaviour
             //    this.remoteLines.Add(thirdRemoteBorder);
             //    this.remoteLines.Add(fourthRemoteBorder);
             //}
-        }
-        else if (cornersDetermined == 2) // Done!
-        {
-            lock (frame_corner_lock) { 
-                corners.Add(lineRenderers[1].GetPosition(1)); // left bottom corner - second border
-                corners.Add(lineRenderers[2].GetPosition(1)); // right bottom corner - third border
-            }
+       // }
+   //if (cornersDetermined == 2) // Done!
+        //{
+           // lock (frame_corner_lock) { 
+            corners.Add(lineRenderers[1].GetPosition(1)); // left bottom corner - second border
+            corners.Add(lineRenderers[2].GetPosition(1)); // right bottom corner - third border
+           // }
             LineRenderer fourthBorder = CreateNewLine(corners[2], corners[3], "fourthBorder");
             lineRenderers.Add(fourthBorder);
+
+
 
             // Destroy remote frame indicator if exists
             //for (int i = 0; i < remoteLines.Count; i++)
@@ -126,7 +140,7 @@ public class FrameHandler : MonoBehaviour
             //remoteLines.Clear();
 
             //Debug.Log(corners[0].ToString() + " ; " + corners[1].ToString() + " ; " + corners[2].ToString() + " ; " + corners[3].ToString());
-        }
+       // }
     }
 
     // turn local portal reposition on and off

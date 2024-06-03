@@ -355,7 +355,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 211222441}
-  networkAddress: 192.168.1.2
+  networkAddress: 192.168.1.10
   maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 1802745496984246640, guid: 7c7009416951dee4094d41045d3cd01f,
@@ -1898,7 +1898,7 @@ MonoBehaviour:
   AutoLogErrors: 1
   LocalPeerId: Hololens2
   RemotePeerId: Hololens1
-  HttpServerAddress: http://192.168.1.2:3000
+  HttpServerAddress: http://192.168.1.10:3000
   PollTimeMs: 500
 --- !u!4 &675028750
 Transform:
@@ -2462,7 +2462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1199374988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3101,7 +3101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1735946907
 BoxCollider:
   m_ObjectHideFlags: 0
