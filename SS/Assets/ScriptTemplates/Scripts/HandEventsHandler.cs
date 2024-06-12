@@ -77,8 +77,12 @@ public class HandEventsHandler : MonoBehaviour
             if (RemoteSpaceControl.STATE == RemoteSpaceControl.PLACE_LOCAL)
             {
                 frameHandler.SetLocalPinched();
-                if (FrameHandler.corners.Count == 1)
+                Debug.Log("FrameHandler.corners.Count");
+                Debug.Log(FrameHandler.corners.Count);
+                if (FrameHandler.corners.Count == 4)
                 {
+                    Debug.Log(" INSIDE FrameHandler.corners.Count");
+                    Debug.Log(FrameHandler.corners.Count);
                     RemoteSpaceControlObject.GetComponent<RemoteSpaceControl>().NotifySetLocal(); // this sets the peer's state to PLACE_REMOTE
                 }
             }

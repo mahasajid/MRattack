@@ -125,6 +125,8 @@ public class RemoteSpaceControl : NetworkBehaviour
 
         if (STATE == PLACE_REMOTE)
         {
+            Debug.Log("remoteSet in PLACE_REMOTE");
+            Debug.Log(remoteSet);
             if (remoteSet)
             {
                 // if local is not set, then I was the second user, I set remote and then decide our initial relative position
@@ -214,6 +216,7 @@ public class RemoteSpaceControl : NetworkBehaviour
 
     void SetRemoteVideo(Vector3[] RemoteCorners = null, bool matchCenter = false)
     {
+        Debug.Log("SetRemoteVideo Called");
         // remote corners are null for the first user, so set automatically
         if (RemoteCorners == null)
         {
@@ -227,11 +230,17 @@ public class RemoteSpaceControl : NetworkBehaviour
                 remoteXAxis = (FrameHandler.corners[0] - FrameHandler.corners[1]).normalized * remoteWidth;
                 remoteYAxis = (FrameHandler.corners[0] - FrameHandler.corners[2]).normalized * remoteHeight;
             }
+            
             RemoteCorners[0] = remoteFrameOrigin;
             RemoteCorners[1] = remoteFrameOrigin + remoteXAxis;
             RemoteCorners[2] = remoteFrameOrigin + remoteYAxis;
             RemoteCorners[3] = remoteFrameOrigin + remoteXAxis + remoteYAxis;
             RemoteSpaceControl.RemoteCorners = RemoteCorners;
+
+            Debug.Log("Frame Corners");
+            Debug.Log(FrameHandler.corners[3]);
+            Debug.Log("Remote Corners");
+            Debug.Log(RemoteCorners[3]);
         }
 
         // place video plane
