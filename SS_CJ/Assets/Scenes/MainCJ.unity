@@ -398,7 +398,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 211222441}
-  networkAddress: 192.168.1.10
+  networkAddress: 192.168.1.15
   maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 1802745496984246640, guid: 7c7009416951dee4094d41045d3cd01f,
@@ -1365,6 +1365,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeshCreation
       objectReference: {fileID: 0}
+    - target: {fileID: 4987367188409559486, guid: 40b588bd40632eb41a0af374d91c4fc9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4987367188862318640, guid: 40b588bd40632eb41a0af374d91c4fc9,
         type: 3}
       propertyPath: m_Mesh
@@ -2099,7 +2104,7 @@ MonoBehaviour:
   AutoLogErrors: 1
   LocalPeerId: Hololens2
   RemotePeerId: Hololens1
-  HttpServerAddress: http://192.168.1.10:3000
+  HttpServerAddress: http://192.168.1.15:3000
   PollTimeMs: 500
 --- !u!4 &675028750
 Transform:
