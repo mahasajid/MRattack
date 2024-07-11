@@ -12,8 +12,8 @@ public class FrameHandler : MonoBehaviour
     // Corners of the frame, make them adjustable this time
     public static List<Vector3> corners; // left top, right top, left bottom, right bottom
                                          // (maybe we should just forbid users from starting with bottom borders...)
-    public static Vector3 addition_second = new Vector3(0.5f,0.0f,0.0f);
-    public static Vector3 addition_third = new Vector3(0.0f,0.0f,-0.5f);
+    public static Vector3 addition_second = new Vector3(0.2f,0.0f,0.0f);
+    public static Vector3 addition_third = new Vector3(0.0f,0.0f,-0.2f);
     public static readonly object frame_corner_lock = new object();
     public static bool corners_updated = false;
 

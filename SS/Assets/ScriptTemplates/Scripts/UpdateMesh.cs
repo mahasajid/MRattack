@@ -122,8 +122,21 @@ public class UpdateMesh : NetworkBehaviour
 
         if (canUpdateMesh && !hasAuthority)
         {
-            Handle.transform.localPosition = handleLocalPosition;
+            
+             if (float.IsNaN(handleLocalPosition.x) || float.IsNaN(handleLocalPosition.y) || float.IsNaN(handleLocalPosition.z))
+                {
+                   
+                            Transform parent = BaseMesh.transform.parent;
+                            Destroy(parent.gameObject);
+                }
+                else
+                        
+                {
+                   Handle.transform.localPosition = handleLocalPosition;
+                }
+                
         }
+
 
         if (canUpdateMesh && has_rigidbody)
         {
