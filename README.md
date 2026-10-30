@@ -37,7 +37,6 @@ Both scripts are referenced by [`Assets/Scenes/Main.unity`](SS_Spatial/Assets/Sc
 - **MixedReality-WebRTC 2.0.2** (referenced by the project manifest)
 - A compatible Windows / Unity build environment for HoloLens 2 deployment, if testing on-device
 
-The project also contains OpenCV-related code, local Unity package archives, and supporting shared-surface experiments. Current Unity installations or device toolchains may need compatibility adjustments.
 
 ## Open and inspect the demo
 
